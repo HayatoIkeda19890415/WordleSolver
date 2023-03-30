@@ -1,6 +1,8 @@
 ﻿// See https://aka.ms/new-console-template for more information
 // Console.WriteLine("Hello, World!");
 
+using System.Text.RegularExpressions;
+
 const string PATH_DICT = @".\Dictionary\";
 Dictionary<char, String[]> dictionaries = new Dictionary<char, String[]>();
 string word = guessWord(null);
@@ -15,7 +17,7 @@ while (result != "22222")
 
 string guessWord(string? input)
 {
-    if (input == null)
+    if (input == null || !Regex.Match(input, @"[0-9]{5}").Success)
     {
         return pickRandomWord();
     }
@@ -44,11 +46,11 @@ string pickRandomWord()
     }
     var onlyAlphabet = @"[a-z]{5}";
     var randLineNum = new Random().Next(0, lines.Count());
-    var match = System.Text.RegularExpressions.Regex.Match(lines[randLineNum], onlyAlphabet);
+    var match = Regex.Match(lines[randLineNum], onlyAlphabet);
     while (!match.Success)
     {
         randLineNum = new Random().Next(0, lines.Count());
-        match = System.Text.RegularExpressions.Regex.Match(lines[randLineNum], onlyAlphabet);
+        match = Regex.Match(lines[randLineNum], onlyAlphabet);
     }
     return lines[randLineNum];
 }
