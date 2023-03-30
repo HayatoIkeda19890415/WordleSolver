@@ -9,9 +9,10 @@ while (result != "22222")
 {
     word = guessWord(result);
     Console.WriteLine(word);
+    result = Console.ReadLine();
 }
 
 string guessWord(string? input)
 {
-    return string.Empty;
+    return "wordle";
 }
