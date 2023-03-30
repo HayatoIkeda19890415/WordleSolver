@@ -2,18 +2,13 @@
 // Console.WriteLine("Hello, World!");
 
 
-string word = suggestWord();
+string word = guessWord(null);
 Console.WriteLine(word);
 string? result = Console.ReadLine();
 while (result != "22222")
 {
     word = guessWord(result);
     Console.WriteLine(word);
-}
-
-string suggestWord()
-{
-    return string.Empty;
 }
 
 string guessWord(string? input)
