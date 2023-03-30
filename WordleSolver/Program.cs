@@ -5,23 +5,25 @@ using System.Text.RegularExpressions;
 
 const string PATH_DICT = @".\Dictionary\";
 Dictionary<char, String[]> dictionaries = new Dictionary<char, String[]>();
-string word = guessWord(null);
+List<char> ng_Chars = new List<char>();
+
+string word = guessWord(string.Empty, string.Empty);
 Console.WriteLine(word);
 string? result = Console.ReadLine();
 while (result != "22222")
 {
-    word = guessWord(result);
+    word = guessWord(result, word);
     Console.WriteLine(word);
     result = Console.ReadLine();
 }
 
-string guessWord(string? input)
+string guessWord(string? input, string latestWord)
 {
-    if (input == null || !Regex.Match(input, @"[0-9]{5}").Success)
+    if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(latestWord) || !Regex.Match(input, @"[0-9]{5}").Success)
     {
         return pickRandomWord();
     }
-    return pickRandomWord();
+    return searchWord(input, latestWord);
 }
 
 string pickRandomWord()
@@ -53,4 +55,30 @@ string pickRandomWord()
         match = Regex.Match(lines[randLineNum], onlyAlphabet);
     }
     return lines[randLineNum];
+}
+
+const char FAILURE = '0';
+const char CHARONLY = '1';
+const char SUCCESS = '2';
+string searchWord(string input, string latestWord)
+{
+    char[] resultArray = input.ToCharArray();
+    char[] wordArray = latestWord.ToCharArray();
+    foreach (char c in resultArray)
+    {
+        if (c == FAILURE)
+        {
+            dictionaries.Remove(c);
+            ng_Chars.Add(c);
+        }
+        else if (c == CHARONLY)
+        {
+
+        }
+        else if (c == SUCCESS)
+        {
+
+        }
+    }
+    return pickRandomWord();
 }
